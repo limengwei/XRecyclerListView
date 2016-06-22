@@ -1,2 +1,22 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.malinskiy/xrecyclerlistview/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.malinskiy/xrecyclerlistview) [![Build Status](https://travis-ci.org/Malinskiy/xrecyclerlistview.svg?branch=master)](https://travis-ci.org/Malinskiy/xrecyclerlistview) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-xrecyclerlistview-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1239)
-==============
+# Step 1. Add the JitPack repository to your build file
+
+## Add it in your root build.gradle at the end of repositories:
+
+``
+	allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+	``
+	
+#	Step 2. Add the dependency
+
+``
+dependencies {
+	        compile 'com.github.limengwei:XRecyclerListView:1.0.2'
+	}
+``
+	
+

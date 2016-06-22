@@ -1,1 +1,2 @@
-# XRecyclerListView
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.malinskiy/xrecyclerlistview/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.malinskiy/xrecyclerlistview) [![Build Status](https://travis-ci.org/Malinskiy/xrecyclerlistview.svg?branch=master)](https://travis-ci.org/Malinskiy/xrecyclerlistview) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-xrecyclerlistview-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1239)
+==============

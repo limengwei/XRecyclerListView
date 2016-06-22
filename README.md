@@ -18,5 +18,46 @@ dependencies {
 	compile 'com.github.limengwei:XRecyclerListView:1.0.2'
 }
 ```
+
+## Usage
+
+in yor layout xml
+```xml
+<org.lmw.xrecyclerlistview.XRecyclerListView
+	android:id="@+id/listView"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" />
+```
+
+in yor activity or fragment
+
+- setRefreshListener
+```
+xListView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+    @Override
+    public void onRefresh() {
+        //do samething
+    }
+});
+```
+- setLodeMoreListener
+```
+xListView.setLodeMoreListener(new XRecyclerListView.LodeMoreListener() {
+    @Override
+    public void onLodeMore() {
+       //do samething
+    }
+}, PAGE_SIZE);
+```
+
+- notifyDataSetChanged
+```
+...
+xListView.notifyDataSetChanged(pageIndex);
+...
+```
+
+
+
 	
 

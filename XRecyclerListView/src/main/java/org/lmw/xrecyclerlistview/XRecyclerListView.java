@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import kale.ui.view.rcv.ExRcvAdapterWrapper;
 import kale.ui.view.rcv.OnRcvScrollListener;
@@ -21,6 +22,7 @@ public class XRecyclerListView extends FrameLayout {
     protected View view;
     protected RecyclerListView mListView;
     protected View mFooterView;
+    protected TextView emptyView;
 
     protected SwipeRefreshLayout swipeRefreshLayout;
 
@@ -59,6 +61,10 @@ public class XRecyclerListView extends FrameLayout {
         swipeRefreshLayout.setEnabled(false);
 
         mListView = (RecyclerListView) view.findViewById(R.id.recyclerListView);
+
+        emptyView = (TextView) view.findViewById(R.id.emptyView);
+
+
     }
 
 
@@ -146,7 +152,7 @@ public class XRecyclerListView extends FrameLayout {
      * @param compatibleWithPrevious
      * @param removeAndRecycleExistingViews
      */
-    private void setAdapterInternal(RecyclerView.Adapter adapter, boolean compatibleWithPrevious, boolean removeAndRecycleExistingViews) {
+    private void setAdapterInternal(final RecyclerView.Adapter adapter, boolean compatibleWithPrevious, boolean removeAndRecycleExistingViews) {
         adapterWrapper = new ExRcvAdapterWrapper(adapter, mListView.getLayoutManager());
 
         if (compatibleWithPrevious)
@@ -168,6 +174,13 @@ public class XRecyclerListView extends FrameLayout {
 
                 private void update() {
                     setRefreshing(false);
+
+                    if (adapter.getItemCount() == 0) {
+                        emptyView.setVisibility(VISIBLE);
+                    } else {
+                        if (emptyView.getVisibility() == VISIBLE)
+                            emptyView.setVisibility(GONE);
+                    }
                 }
             });
     }
@@ -180,13 +193,15 @@ public class XRecyclerListView extends FrameLayout {
     public void notifyDataSetChanged(int pageIndex) {
 
         if (adapterWrapper.getFooterView() == null) {
-            adapterWrapper.setFooterView(mFooterView);
+            if (lodeMoreListener != null)
+                adapterWrapper.setFooterView(mFooterView);
         }
 
-        int total = mListView.getAdapter().getItemCount()-1;
+        int total = mListView.getAdapter().getItemCount() - 1;
 
         if ((total - (pageIndex - 1) * PAGE_SIZE) < PAGE_SIZE) {
-            adapterWrapper.removeFooterView();
+            if (adapterWrapper.getFooterView() != null)
+                adapterWrapper.removeFooterView();
         }
 
         adapterWrapper.notifyDataSetChanged();
@@ -207,7 +222,7 @@ public class XRecyclerListView extends FrameLayout {
     }
 
 
-    public void scrollTo(int position){
+    public void scrollTo(int position) {
         mListView.scrollToPosition(position);
     }
 

@@ -74,15 +74,15 @@ public class MainActivity extends AppCompatActivity {
                     list.clear();
                 }
 
-                int k = PAGE_SIZE;
-
-                if (pageIndex == 3) {
-                    k = 5;
-                }
-
-                for (int i = 0; i < k; i++) {
-                    list.add("Item" + (PAGE_SIZE * (pageIndex - 1)) + i);
-                }
+//                int k = PAGE_SIZE;
+//
+//                if (pageIndex == 3) {
+//                    k = 5;
+//                }
+//
+//                for (int i = 0; i < k; i++) {
+//                    list.add("Item" + (PAGE_SIZE * (pageIndex - 1)) + i);
+//                }
 
                 listView.notifyDataSetChanged(pageIndex);
 

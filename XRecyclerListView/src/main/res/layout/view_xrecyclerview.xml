@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <cn.hisforce.patientApp.view.RecyclerListView
+        <org.lmw.xrecyclerlistview.RecyclerListView
             android:id="@+id/recyclerListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </cn.hisforce.patientApp.view.RecyclerListView>
+        </org.lmw.xrecyclerlistview.RecyclerListView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -27,4 +27,5 @@
         android:text="Empty"
         android:textSize="50sp"
         android:visibility="gone" />
+
 </FrameLayout>

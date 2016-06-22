@@ -1,6 +1,4 @@
-## Step 1. Add the JitPack repository to your build file
-
-Add it in your root build.gradle at the end of repositories:
+## Step 1. 设置源
 
 ```
 allprojects {
@@ -11,7 +9,7 @@ allprojects {
 }
 ```
 	
-## Step 2. Add the dependency
+## Step 2. 添加引用
 
 ```
 dependencies {
@@ -21,7 +19,7 @@ dependencies {
 
 ## Usage
 
-in yor layout xml
+布局文件
 ```xml
 <org.lmw.xrecyclerlistview.XRecyclerListView
 	android:id="@+id/listView"
@@ -31,7 +29,7 @@ in yor layout xml
 
 in yor activity or fragment
 
-- setRefreshListener
+- 设置下拉刷新监听器
 ```
 xListView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
     @Override
@@ -40,7 +38,7 @@ xListView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
     }
 });
 ```
-- setLodeMoreListener
+- 设置分页监听器
 ```
 xListView.setLodeMoreListener(new XRecyclerListView.LodeMoreListener() {
     @Override
@@ -50,7 +48,7 @@ xListView.setLodeMoreListener(new XRecyclerListView.LodeMoreListener() {
 }, PAGE_SIZE);
 ```
 
-- notifyDataSetChanged
+- 更新列表
 ```
 ...
 xListView.notifyDataSetChanged(pageIndex);

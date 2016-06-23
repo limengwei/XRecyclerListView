@@ -16,7 +16,7 @@ dependencies {
 	compile 'com.github.limengwei:XRecyclerListView:1.0.3'
 }
 ```
-
+---
 ## Usage
 
 布局文件
@@ -24,10 +24,18 @@ dependencies {
 <org.lmw.xrecyclerlistview.XRecyclerListView
 	android:id="@+id/listView"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent" />
+	android:layout_height="match_parent"
+	app:layout_empty="@layout/customer_empty"
+    app:layout_progressFooter="@layout/customer_footer"
+	/>
 ```
+自定义属性
+- app:layout_empty ：设置空页面
+- app:layout_progressFooter ：设置底部进加载进度条
 
-in yor activity or fragment
+---
+
+在Activity和Fragment中使用
 
 - 设置下拉刷新监听器
 ```
@@ -54,8 +62,3 @@ xListView.setLodeMoreListener(new XRecyclerListView.LodeMoreListener() {
 xListView.notifyDataSetChanged(pageIndex);
 ...
 ```
-
-
-
-	
-

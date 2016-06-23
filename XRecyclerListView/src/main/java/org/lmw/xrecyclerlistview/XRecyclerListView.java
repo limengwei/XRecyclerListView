@@ -1,14 +1,15 @@
 package org.lmw.xrecyclerlistview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.ColorRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import kale.ui.view.rcv.ExRcvAdapterWrapper;
 import kale.ui.view.rcv.OnRcvScrollListener;
@@ -19,16 +20,21 @@ import kale.ui.view.rcv.OnRcvScrollListener;
 public class XRecyclerListView extends FrameLayout {
     protected int PAGE_SIZE = 10;
 
-    protected View view;
+    protected View mRootView;
     protected RecyclerListView mListView;
+
     protected View mFooterView;
-    protected TextView emptyView;
 
-    protected SwipeRefreshLayout swipeRefreshLayout;
+    protected ViewStub mEmptyViewStub;
+    protected View mEmptyView;
 
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
     SwipeRefreshLayout.OnRefreshListener refreshListener;
     LodeMoreListener lodeMoreListener;
     ExRcvAdapterWrapper adapterWrapper;
+
+
+    int mEmptyViewId, mFooterViewId;
 
     public XRecyclerListView(Context context) {
         super(context);
@@ -37,34 +43,44 @@ public class XRecyclerListView extends FrameLayout {
 
     public XRecyclerListView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initAttrs(attrs);
         initView();
     }
 
     public XRecyclerListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        initAttrs(attrs);
         initView();
+    }
+
+    private void initAttrs(AttributeSet attrs) {
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.xrecyclerlistview);
+        mEmptyViewId = a.getResourceId(R.styleable.xrecyclerlistview_layout_empty, R.layout.xrecyclerlistview_view_empty);
+        mFooterViewId = a.getResourceId(R.styleable.xrecyclerlistview_layout_progressFooter, R.layout.xrecyclerlistview_view_footer_progress);
     }
 
     private void initView() {
         if (isInEditMode()) {
             return;
         }
+        mRootView = LayoutInflater.from(getContext()).inflate(R.layout.xrecyclerlistview_view_xrecyclerview, this);
 
-        view = LayoutInflater.from(getContext()).inflate(R.layout.view_xrecyclerview, this);
+        mEmptyViewStub = (ViewStub) mRootView.findViewById(R.id.emptyView);
+        mEmptyViewStub.setLayoutResource(mEmptyViewId);
+        if (mEmptyViewId != 0) {
+            mEmptyView = mEmptyViewStub.inflate();
+            mEmptyView.setVisibility(GONE);
+        }
 
-        mFooterView = LayoutInflater.from(getContext()).inflate(R.layout.view_footer_progress, null);
+        mFooterView = LayoutInflater.from(getContext()).inflate(mFooterViewId, null);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.swipeRefreshLayout);
 
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
 
-        swipeRefreshLayout.setEnabled(false);
+        mSwipeRefreshLayout.setEnabled(false);
 
-        mListView = (RecyclerListView) view.findViewById(R.id.recyclerListView);
-
-        emptyView = (TextView) view.findViewById(R.id.emptyView);
-
-
+        mListView = (RecyclerListView) mRootView.findViewById(R.id.recyclerListView);
     }
 
 
@@ -79,9 +95,9 @@ public class XRecyclerListView extends FrameLayout {
      * 设置下拉刷新监听
      */
     public void setRefreshListener(SwipeRefreshLayout.OnRefreshListener listener) {
-        swipeRefreshLayout.setEnabled(true);
+        mSwipeRefreshLayout.setEnabled(true);
         refreshListener = listener;
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 adapterWrapper.removeFooterView();
@@ -95,14 +111,14 @@ public class XRecyclerListView extends FrameLayout {
      */
     public void setRefreshing(final boolean refreshing) {
         if (refreshing) {
-            swipeRefreshLayout.post(new Runnable() {
+            mSwipeRefreshLayout.post(new Runnable() {
                 @Override
                 public void run() {
-                    swipeRefreshLayout.setRefreshing(refreshing);
+                    mSwipeRefreshLayout.setRefreshing(refreshing);
                 }
             });
         } else {
-            swipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -142,7 +158,7 @@ public class XRecyclerListView extends FrameLayout {
      * 设置下拉刷新控件颜色
      */
     public void setRefreshingColorResources(@ColorRes int colRes1, @ColorRes int colRes2, @ColorRes int colRes3, @ColorRes int colRes4) {
-        swipeRefreshLayout.setColorSchemeResources(colRes1, colRes2, colRes3, colRes4);
+        mSwipeRefreshLayout.setColorSchemeResources(colRes1, colRes2, colRes3, colRes4);
     }
 
     /**
@@ -161,7 +177,7 @@ public class XRecyclerListView extends FrameLayout {
             mListView.setAdapter(adapterWrapper);
 
         mListView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.setRefreshing(false);
 
         if (null != adapterWrapper)
             adapterWrapper.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -176,10 +192,10 @@ public class XRecyclerListView extends FrameLayout {
                     setRefreshing(false);
 
                     if (adapter.getItemCount() == 0) {
-                        emptyView.setVisibility(VISIBLE);
+                        mEmptyView.setVisibility(VISIBLE);
                     } else {
-                        if (emptyView.getVisibility() == VISIBLE)
-                            emptyView.setVisibility(GONE);
+                        if (mEmptyView.getVisibility() == VISIBLE)
+                            mEmptyView.setVisibility(GONE);
                     }
                 }
             });

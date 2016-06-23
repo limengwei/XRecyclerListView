@@ -3,15 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <ViewStub
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_gray"
-        android:gravity="center"
-        android:text="Empty"
-        android:textSize="50sp"
-        android:visibility="gone" />
+        android:layout_height="match_parent" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"

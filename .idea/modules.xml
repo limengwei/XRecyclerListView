@@ -6,8 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/XRecyclerListView/XRecyclerListView.iml" filepath="$PROJECT_DIR$/XRecyclerListView/XRecyclerListView.iml" />
       <module fileurl="file://$PROJECT_DIR$/XRecyclerListView/XRecyclerListView-XRecyclerListView.iml" filepath="$PROJECT_DIR$/XRecyclerListView/XRecyclerListView-XRecyclerListView.iml" />
       <module fileurl="file://$PROJECT_DIR$/XRecyclerListView-sample/XRecyclerListView-sample.iml" filepath="$PROJECT_DIR$/XRecyclerListView-sample/XRecyclerListView-sample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/XRecyclerListView-sample/XRecyclerListView-sample.iml" filepath="$PROJECT_DIR$/XRecyclerListView-sample/XRecyclerListView-sample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/XRecyclerlistview.iml" filepath="$PROJECT_DIR$/XRecyclerlistview.iml" />
       <module fileurl="file://$PROJECT_DIR$/XRecyclerListView-sample/app.iml" filepath="$PROJECT_DIR$/XRecyclerListView-sample/app.iml" />
     </modules>
   </component>

@@ -13,7 +13,7 @@ allprojects {
 
 ```
 dependencies {
-	compile 'com.github.limengwei:XRecyclerListView:1.0.4'
+	compile 'com.github.limengwei:XRecyclerListView:1.0.5'
 }
 ```
 ---
@@ -25,13 +25,13 @@ dependencies {
 	android:id="@+id/listView"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	app:layout_empty="@layout/customer_empty"
-    app:layout_progressFooter="@layout/customer_footer"
+	app:xrl_layout_empty="@layout/customer_empty"
+    app:xrl_layout_progressFooter="@layout/customer_footer"
 	/>
 ```
 自定义属性
-- app:layout_empty ：设置空页面
-- app:layout_progressFooter ：设置底部进加载进度条
+- app:xrl_layout_empty ：设置空页面
+- app:xrl_layout_progressFooter ：设置底部进加载进度条
 
 ---
 

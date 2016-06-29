@@ -55,8 +55,8 @@ public class XRecyclerListView extends FrameLayout {
 
     private void initAttrs(AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.xrecyclerlistview);
-        mEmptyViewId = a.getResourceId(R.styleable.xrecyclerlistview_layout_empty, R.layout.xrecyclerlistview_view_empty);
-        mFooterViewId = a.getResourceId(R.styleable.xrecyclerlistview_layout_progressFooter, R.layout.xrecyclerlistview_view_footer_progress);
+        mEmptyViewId = a.getResourceId(R.styleable.xrecyclerlistview_xrl_layout_empty, R.layout.xrecyclerlistview_view_empty);
+        mFooterViewId = a.getResourceId(R.styleable.xrecyclerlistview_xrl_layout_progressFooter, R.layout.xrecyclerlistview_view_footer_progress);
     }
 
     private void initView() {

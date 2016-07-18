@@ -1,15 +1,19 @@
 package org.lmw.xrecyclerlistview;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import kale.ui.view.rcv.ExRcvAdapterWrapper;
 import kale.ui.view.rcv.OnRcvScrollListener;
@@ -27,6 +31,8 @@ public class XRecyclerListView extends FrameLayout {
 
     protected ViewStub mEmptyViewStub;
     protected View mEmptyView;
+    TextView tips;
+
 
     protected SwipeRefreshLayout mSwipeRefreshLayout;
     SwipeRefreshLayout.OnRefreshListener refreshListener;
@@ -70,6 +76,7 @@ public class XRecyclerListView extends FrameLayout {
         if (mEmptyViewId != 0) {
             mEmptyView = mEmptyViewStub.inflate();
             mEmptyView.setVisibility(GONE);
+            tips = (TextView) mEmptyView.findViewById(R.id.tips);
         }
 
         mFooterView = LayoutInflater.from(getContext()).inflate(mFooterViewId, null);
@@ -83,6 +90,25 @@ public class XRecyclerListView extends FrameLayout {
         mListView = (RecyclerListView) mRootView.findViewById(R.id.recyclerListView);
     }
 
+    public void setEmptyTips(String msg) {
+        setEmptyTips(msg,-1);
+    }
+
+    public void setEmptyTips(String msg, int drawableTopResId) {
+        if (tips != null) {
+            tips.setText(msg);
+
+            if (drawableTopResId != -1) {
+                Drawable topDrawable = getResources().getDrawable(drawableTopResId);
+                topDrawable.setBounds(0, 0, topDrawable.getMinimumWidth(), topDrawable.getMinimumHeight());
+                tips.setCompoundDrawables(null, topDrawable, null, null);
+            }
+        }
+    }
+
+    public RecyclerListView getListView(){
+        return mListView;
+    }
 
     /**
      * 设置适配器
@@ -238,14 +264,15 @@ public class XRecyclerListView extends FrameLayout {
     }
 
 
-    public void scrollTo(int position) {
-        mListView.scrollToPosition(position);
+    public LinearLayoutManager getLayoutManager() {
+        return (LinearLayoutManager) mListView.getLayoutManager();
     }
 
     /**
      * 加载更多 接口
      */
     public interface LodeMoreListener {
+
         void onLodeMore();
     }
 }

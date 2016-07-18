@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.lmw.xrecyclerlistview.XRecyclerListView;
 
@@ -57,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
 
         listView.setRefreshing(true);
         getData();
+    }
+
+    public void hello(View v){
+        Toast.makeText(MainActivity.this,"hellooo",Toast.LENGTH_SHORT).show();
+        listView.getLayoutManager().scrollToPositionWithOffset(5,0);
     }
 
     boolean datageting = false;
@@ -122,6 +129,12 @@ public class MainActivity extends AppCompatActivity {
             public ViewHolder(View itemView) {
                 super(itemView);
                 textView = (TextView) itemView.findViewById(R.id.text1);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this,"hellooo",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         }
     }

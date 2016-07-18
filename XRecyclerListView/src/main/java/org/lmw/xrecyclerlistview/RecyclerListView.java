@@ -2,6 +2,7 @@ package org.lmw.xrecyclerlistview;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.annotation.Size;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -15,6 +16,9 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
  * RecyclerView版ListView
  */
 public class RecyclerListView extends RecyclerView {
+
+    Context context;
+    HorizontalDividerItemDecoration divider;
 
     public RecyclerListView(Context context) {
         super(context);
@@ -33,6 +37,7 @@ public class RecyclerListView extends RecyclerView {
 
 
     void init(Context context) {
+        this.context = context;
         //关闭顶部底部阴影
         setOverScrollMode(OVER_SCROLL_NEVER);
 
@@ -42,13 +47,23 @@ public class RecyclerListView extends RecyclerView {
         setLayoutManager(layoutManager);
         setHasFixedSize(true);
 
+        addItemDecoration(R.color.divider_gray, 2);
+    }
+
+    public void addItemDecoration(int colorResId, int size) {
         //设置Item分割线
         HorizontalDividerItemDecoration divider = new HorizontalDividerItemDecoration.Builder(context)
-                .colorResId(R.color.divider_gray)
+                .colorResId(colorResId)
                 .showLastDivider()
-                .size(2)
+                .size(size)
                 .build();
         addItemDecoration(divider);
     }
+
+    public void removeItemDecoration() {
+        if (divider != null)
+            removeItemDecoration(divider);
+    }
+
 
 }

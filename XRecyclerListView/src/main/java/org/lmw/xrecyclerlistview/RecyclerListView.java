@@ -46,8 +46,6 @@ public class RecyclerListView extends RecyclerView {
         layoutManager.setOrientation(LinearLayout.VERTICAL);
         setLayoutManager(layoutManager);
         setHasFixedSize(true);
-
-        addItemDecoration(R.color.divider_gray, 2);
     }
 
     public void addItemDecoration(int colorResId, int size) {
@@ -59,12 +57,5 @@ public class RecyclerListView extends RecyclerView {
                 .build();
 
         addItemDecoration(divider);
-    }
-
-    public void removeItemDecoration() {
-        if (divider != null) {
-            removeItemDecoration(divider);
-            divider = null;
-        }
     }
 }

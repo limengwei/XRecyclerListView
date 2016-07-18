@@ -13,7 +13,7 @@ allprojects {
 
 ```
 dependencies {
-	compile 'com.github.limengwei:XRecyclerListView:1.0.6'
+	compile 'com.github.limengwei:XRecyclerListView:1.0.7'
 }
 ```
 ---

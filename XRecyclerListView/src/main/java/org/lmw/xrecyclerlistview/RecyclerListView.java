@@ -57,13 +57,14 @@ public class RecyclerListView extends RecyclerView {
                 .showLastDivider()
                 .size(size)
                 .build();
+
         addItemDecoration(divider);
     }
 
     public void removeItemDecoration() {
-        if (divider != null)
+        if (divider != null) {
             removeItemDecoration(divider);
+            divider = null;
+        }
     }
-
-
 }

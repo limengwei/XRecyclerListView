@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         listView = (XRecyclerListView) findViewById(R.id.listView);
+
+        listView.getListView().removeItemDecoration();
         list = new ArrayList<>();
         adapter = new SampleAdapter(this, list);
         listView.setAdapter(adapter);

@@ -91,7 +91,7 @@ public class XRecyclerListView extends FrameLayout {
     }
 
     public void setEmptyTips(String msg) {
-        setEmptyTips(msg,-1);
+        setEmptyTips(msg, -1);
     }
 
     public void setEmptyTips(String msg, int drawableTopResId) {
@@ -99,14 +99,19 @@ public class XRecyclerListView extends FrameLayout {
             tips.setText(msg);
 
             if (drawableTopResId != -1) {
-                Drawable topDrawable = getResources().getDrawable(drawableTopResId);
+                Drawable topDrawable = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    topDrawable = getResources().getDrawable(drawableTopResId, getContext().getTheme());
+                } else {
+                    topDrawable = getResources().getDrawable(drawableTopResId);
+                }
                 topDrawable.setBounds(0, 0, topDrawable.getMinimumWidth(), topDrawable.getMinimumHeight());
                 tips.setCompoundDrawables(null, topDrawable, null, null);
             }
         }
     }
 
-    public RecyclerListView getListView(){
+    public RecyclerListView getListView() {
         return mListView;
     }
 

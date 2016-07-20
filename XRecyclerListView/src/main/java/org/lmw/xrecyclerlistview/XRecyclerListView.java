@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import kale.ui.view.rcv.ExRcvAdapterWrapper;
@@ -31,7 +32,8 @@ public class XRecyclerListView extends FrameLayout {
 
     protected ViewStub mEmptyViewStub;
     protected View mEmptyView;
-    TextView tips;
+    TextView tips_msg;
+    ImageView tips_img;
 
 
     protected SwipeRefreshLayout mSwipeRefreshLayout;
@@ -76,7 +78,8 @@ public class XRecyclerListView extends FrameLayout {
         if (mEmptyViewId != 0) {
             mEmptyView = mEmptyViewStub.inflate();
             mEmptyView.setVisibility(GONE);
-            tips = (TextView) mEmptyView.findViewById(R.id.tips);
+            tips_msg = (TextView) mEmptyView.findViewById(R.id.tips_msg);
+            tips_img = (ImageView) mEmptyView.findViewById(R.id.tips_img);
         }
 
         mFooterView = LayoutInflater.from(getContext()).inflate(mFooterViewId, null);
@@ -95,20 +98,11 @@ public class XRecyclerListView extends FrameLayout {
     }
 
     public void setEmptyTips(String msg, int drawableTopResId) {
-        if (tips != null) {
-            tips.setText(msg);
+        if (tips_msg != null)
+            tips_msg.setText(msg);
 
-            if (drawableTopResId != -1) {
-                Drawable topDrawable = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    topDrawable = getResources().getDrawable(drawableTopResId, getContext().getTheme());
-                } else {
-                    topDrawable = getResources().getDrawable(drawableTopResId);
-                }
-                topDrawable.setBounds(0, 0, topDrawable.getMinimumWidth(), topDrawable.getMinimumHeight());
-                tips.setCompoundDrawables(null, topDrawable, null, null);
-            }
-        }
+        if (tips_img != null && drawableTopResId != -1)
+            tips_img.setImageResource(drawableTopResId);
     }
 
     public RecyclerListView getListView() {

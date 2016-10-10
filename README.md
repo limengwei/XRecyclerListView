@@ -63,4 +63,11 @@ xListView.notifyDataSetChanged(pageIndex);
 ...
 ```
 
+- 设置headerView
+```
+...
+headerView = LayoutInflater.from(getContext()).inflate(R.layout.view_banner, xListView, false);
 
+xListView.setAdapter(adapter,headerView);
+...
+```

@@ -113,7 +113,15 @@ public class XRecyclerListView extends FrameLayout {
      * 设置适配器
      */
     public void setAdapter(RecyclerView.Adapter adapter) {
-        setAdapterInternal(adapter, false, true);
+        setAdapterInternal(adapter, null, false, true);
+    }
+
+    /**
+     * 设置适配器
+     * 并设置headview
+     */
+    public void setAdapter(RecyclerView.Adapter adapter, View headerView) {
+        setAdapterInternal(adapter, headerView, false, true);
     }
 
     /**
@@ -193,8 +201,10 @@ public class XRecyclerListView extends FrameLayout {
      * @param compatibleWithPrevious
      * @param removeAndRecycleExistingViews
      */
-    private void setAdapterInternal(final RecyclerView.Adapter adapter, boolean compatibleWithPrevious, boolean removeAndRecycleExistingViews) {
+    private void setAdapterInternal(final RecyclerView.Adapter adapter, View headerView, boolean compatibleWithPrevious, boolean removeAndRecycleExistingViews) {
         adapterWrapper = new ExRcvAdapterWrapper(adapter, mListView.getLayoutManager());
+        if (headerView != null)
+            adapterWrapper.setHeaderView(headerView);
 
         if (compatibleWithPrevious)
             mListView.swapAdapter(adapterWrapper, removeAndRecycleExistingViews);
